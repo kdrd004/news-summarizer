@@ -3,7 +3,7 @@ import os
 import urllib.request
 import urllib.error
 import ssl
-
+import re
 
 def cors_headers():
     """Return CORS headers for responses"""
@@ -51,21 +51,29 @@ def lambda_handler(event, context):
                 "body": json.dumps({"error": "Missing URL"})
             }
 
-        # Fetch article text (first 1000 chars to stay under token limit)
-        print(f"Fetching article from: {url}")
+        print(f"Fetching and cleaning article from: {url}")
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-            # create an unverified SSL context (Lambda has up-to-date certs, but this avoids occasional SSL issues)
+            
+            import urllib.parse
+
+            # Use Jina AI proxy to extract clean article text automatically
+            text_api_url = f"https://r.jina.ai/{url}"  # Jina AI proxy extracts readable text
+            print(f"Fetching cleaned text from: {text_api_url}")
+            req = urllib.request.Request(text_api_url, headers={"User-Agent": "Mozilla/5.0"})
             context_ssl = ssl.create_default_context()
             with urllib.request.urlopen(req, timeout=10, context=context_ssl) as resp:
-                article_text = resp.read().decode("utf-8", errors="ignore")[:1000]
+                clean_text = resp.read().decode("utf-8", errors="ignore")
+            article_text = re.sub(r"\s+", " ", clean_text).strip()[:1000]
+
         except Exception as e:
             print(f"Error fetching article: {e}")
             return {
+
                 "statusCode": 400,
                 "headers": cors_headers(),
                 "body": json.dumps({"error": f"Failed to fetch article: {str(e)}"})
             }
+
 
         # Call Hugging Face Summarization API using urllib (no external deps)
         api_url = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-cnn"
