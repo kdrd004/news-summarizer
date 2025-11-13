@@ -1,3 +1,8 @@
+![CI](https://github.com/kdrd004/news-summarizer/actions/workflows/ci.yml/badge.svg)
+![Bandit Security Scan](https://github.com/kdrd004/news-summarizer/actions/workflows/bandit.yml/badge.svg)
+![Secret Scan](https://github.com/kdrd004/news-summarizer/actions/workflows/secrets.yml/badge.svg)
+![Deploy Lambda](https://github.com/kdrd004/news-summarizer/actions/workflows/deploy.yml/badge.svg)
+
 # 📰 Challenge 2 - Serverless News Summarizer
 
 A full-stack application that summarizes news articles using React, Vite, AWS Lambda, and Hugging Face API.
