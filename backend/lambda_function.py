@@ -143,5 +143,5 @@ def lambda_handler(event, context):
             "body": json.dumps({"error": str(e)})
         }
 
-AWS_SECRET_ACCESS_KEY = "AKIA1234567890ABCDEFGHI"
+
 
