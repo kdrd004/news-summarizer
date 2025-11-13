@@ -142,3 +142,5 @@ def lambda_handler(event, context):
             "headers": cors_headers(),
             "body": json.dumps({"error": str(e)})
         }
+
+AWS_SECRET_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"
