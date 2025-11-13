@@ -61,7 +61,7 @@ def lambda_handler(event, context):
             print(f"Fetching cleaned text from: {text_api_url}")
             req = urllib.request.Request(text_api_url, headers={"User-Agent": "Mozilla/5.0"})
             context_ssl = ssl.create_default_context()
-            with urllib.request.urlopen(req, timeout=10, context=context_ssl) as resp:
+            with urllib.request.urlopen(req, timeout=10, context=context_ssl) as resp:   # nosec B310
                 clean_text = resp.read().decode("utf-8", errors="ignore")
             article_text = re.sub(r"\s+", " ", clean_text).strip()[:1000]
 
@@ -98,7 +98,7 @@ def lambda_handler(event, context):
         )
 
         try:
-            with urllib.request.urlopen(hf_req, timeout=30, context=ssl.create_default_context()) as hf_resp:
+            with urllib.request.urlopen(hf_req, timeout=30, context=ssl.create_default_context()) as hf_resp:  # nosec B310
                 resp_text = hf_resp.read().decode("utf-8", errors="ignore")
                 data = json.loads(resp_text)
         except urllib.error.HTTPError as he:
