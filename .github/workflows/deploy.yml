@@ -31,6 +31,12 @@ jobs:
           cd backend
           zip -r lambda.zip .
 
+      - name: Debug - List backend files
+        run: ls -R backend
+
+      - name: Debug - Check ZIP size
+        run: du -h backend/lambda.zip
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -39,7 +45,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to AWS Lambda
-        run: |
-          aws lambda update-function-code \
-            --function-name news-summarizer \
-            --zip-file fileb://backend/lambda.zip
+        run: aws lambda update-function-code --function-name news-summarizer --zip-file fileb://backend/lambda.zip
