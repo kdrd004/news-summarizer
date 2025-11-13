@@ -36,10 +36,47 @@ jobs:
           pytest || true   # prevent hard fail if tests not written
 
   frontend-ci:
+    name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  backend-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
+      - name: Lint backend with flake8
+        run: |
+          cd backend
+          flake8 .
+
+      - name: Run backend tests
+        run: |
+          cd backend
+          pytest || true
+
+  frontend-ci:
     name: Frontend Build
     runs-on: ubuntu-latest
-    needs: backend-ci   # Only run after backend passes
-
+    needs: backend-ci
     defaults:
       run:
         working-directory: frontend
