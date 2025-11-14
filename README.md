@@ -7,6 +7,9 @@
 
 A full-stack application that summarizes news articles using React, Vite, AWS Lambda, and Hugging Face API.
 
+### Live Demo
+Access the hosted frontend: https://news-summarizer-kappa.vercel.app/
+
 ## 📊 Status
 
 ✅ **Backend (AWS Lambda)**: Live and working  
@@ -182,4 +185,62 @@ MIT
 
 ---
 
-**Built with ❤️ for learning serverless architecture and NLP integration**
+**Built with love for learning serverless architecture and NLP integration**
+
+🛠️ Challenge 3 – DevSecOps Pipeline Setup
+
+This project also includes my work for Challenge 3, where I added CI/CD, security checks, and automated scanning on top of the existing News Summarizer app.
+
+🔍 Objective
+
+The goal was to introduce DevSecOps practices into the project by automating:
+
+Code linting
+
+Backend tests
+
+Static analysis
+
+Security checks for secrets
+
+Optional automatic deployment to AWS Lambda
+
+Everything had to run through GitHub Actions whenever a new commit was pushed.
+
+⚙️ What I Added in Challenge 3
+1. CI Pipeline (GitHub Actions)
+
+The CI workflow now does:
+
+Python backend linting using flake8
+
+Backend tests (pytest placeholder)
+
+Frontend build check (Node 18 + Vite)
+
+Artifacts upload for the built frontend
+
+2. Security Scans
+
+I added two dedicated workflows:
+
+Bandit security scan for Python vulnerabilities
+
+GitHub Secret Scan workflow to detect accidental secret exposure
+
+Both run automatically on:
+
+push → main
+pull_request
+
+3. CodeQL
+
+CodeQL is enabled via GitHub’s built-in code scanning.
+It runs automatically and reports alerts inside the Security tab.
+
+4. Lambda Deployment Workflow
+
+A separate deploy.yml file packages the backend and updates the AWS Lambda function when:
+
+backend/** changes
+OR deploy.yml is updated
