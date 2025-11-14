@@ -10,13 +10,6 @@ A full-stack application that summarizes news articles using React, Vite, AWS La
 ### Live Demo
 Access the hosted frontend: https://news-summarizer-kappa.vercel.app/
 
-## 📊 Status
-
-✅ **Backend (AWS Lambda)**: Live and working  
-✅ **Frontend (Local)**: Working at localhost:5173  
-✅ **CORS**: Fixed and tested  
-⏳ **Vercel Deployment**: Ready (see `DEPLOYMENT.md`)
-
 ---
 
 ## 🧠 Objective
